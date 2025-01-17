@@ -352,7 +352,7 @@ let end_block = {
   on_finish: function() {
     assessPerformance();
     let experimentData = jsPsych.data.get().json();
-    fetch("https://script.google.com/macros/s/AKfycby3Il0lftFRzbpmIWkg48cOAFAYGpQrOAF5rpZQemGY76rXUyH_Y287fa1A9HVX4HKDMQ/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbyTxDcv470x2k-1IZsmA2pUwsD3-QVsw7ynMI2qD0-iMXv_wGC9E3B1xoLvalLXh6-__Q/exec", {
       method: 'POST',
       body: experimentData,
       headers: {
