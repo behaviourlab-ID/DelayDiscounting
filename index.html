@@ -2,27 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Delay Discounting Experiment</title>
+  <title>Delay Discounting Task (jsPsych 8)</title>
 
-  <!-- 1. Load jsPsych core (v8.2.0) -->
+  <!-- Load jsPsych core -->
   <script src="https://unpkg.com/jspsych@8.2.0/dist/index.browser.min.js"></script>
 
-  <!-- 2. Load the new (v8+) plugins you actually use -->
-  <!-- Example: html-keyboard-response, instructions, survey-text, etc. -->
+  <!-- Plugins you need -->
   <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.4/dist/index.browser.min.js"></script>
   <script src="https://unpkg.com/@jspsych/plugin-instructions@2.0.4/dist/index.browser.min.js"></script>
   <script src="https://unpkg.com/@jspsych/plugin-survey-text@2.0.4/dist/index.browser.min.js"></script>
 
-  <!-- 3. Load your own CSS for layout/styling -->
+  <!-- Your CSS (optional) -->
   <link rel="stylesheet" href="style.css" />
-
 </head>
 <body>
-  <!-- 4. A container div for jsPsych to attach the experiment -->
+  <!-- jsPsych will render trials here -->
   <div id="jspsych-target"></div>
 
-  <!-- 5. Your main experiment logic -->
+  <!-- Now load your *pure JS* experiment code -->
   <script src="experiment.js" defer></script>
 </body>
 </html>
