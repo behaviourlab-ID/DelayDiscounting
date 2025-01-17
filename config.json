@@ -7,9 +7,9 @@
       "static/js/math.min.js",
 
       "https://unpkg.com/jspsych@8.2.0/dist/index.browser.min.js",
-      "https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.4/dist/index.browser.min.js",
-      "https://unpkg.com/@jspsych/plugin-instructions@2.0.4/dist/index.browser.min.js",
-      "https://unpkg.com/@jspsych/plugin-survey-text@2.0.4/dist/index.browser.min.js",
+      "https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.1.0",
+      "https://unpkg.com/@jspsych/plugin-instructions@1.1.4",
+      "https://unpkg.com/@jspsych/plugin-survey-text@1.1.3",
 
       "experiment.js",
       
