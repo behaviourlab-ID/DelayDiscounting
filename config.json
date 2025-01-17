@@ -1,44 +1,48 @@
 [
-    {
-        "name": "Discount Titrate: Intertemporal Choice",
-        "template":"jspsych",
-        "run": [
-                 "static/js/math.min.js",
-                 "static/js/jspsych/jspsych.js",
-                 "static/js/jspsych/plugins/jspsych-text.js",
-                 "static/js/jspsych/poldrack_plugins/jspsych-poldrack-text.js",
-                 "static/js/jspsych/poldrack_plugins/jspsych-poldrack-instructions.js",
-                 "static/js/jspsych/poldrack_plugins/jspsych-attention-check.js",
-                 "static/js/jspsych/poldrack_plugins/jspsych-poldrack-single-stim.js",
-                 "static/js/jspsych/plugins/jspsych-survey-text.js",
-                 "static/js/utils/poldrack_utils.js",
-                 "experiment.js",
-                 "static/css/jspsych.css",
-                 "static/css/default_style.css",
-                 "style.css"
-               ],
-        "exp_id": "discount_titrate",
-        "cognitive_atlas_task_id": "trm_566748c929afc",
-        "contributors": [
-                         "Zeynep Enkavi",
-                         "Ian Eisenberg",
-                         "Patrick Bissett",
-                         "Vanessa Sochat",
-                         "Russell Poldrack"
-                        ], 
-        "time":5,
-        "reference": "http://www.nature.com/neuro/journal/v13/n5/extref/nn.2516-S1.pdf",
-        "publish":"True",
-        "experiment_variables": [{
-                                 "name":"credit_var",
-                                 "type":"credit",
-                                 "datatype": "boolean",
-                                 "description":"True if avg_rt > 200"
-                                  }],
-        "deployment_variables":{"jspsych_init":
-                                        {"fullscreen": true,
-                                        "display_element": "getDisplayElement",
-                                        "on_trial_finish": "addID('discount_titrate')"}
-                       }    
-   }
+  {
+    "name": "Discount Titrate: Intertemporal Choice",
+    "template": "jspsych",
+
+    "run": [
+      "static/js/math.min.js",
+
+      "https://unpkg.com/jspsych@8.2.0/dist/index.browser.min.js",
+      "https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.4/dist/index.browser.min.js",
+      "https://unpkg.com/@jspsych/plugin-instructions@2.0.4/dist/index.browser.min.js",
+      "https://unpkg.com/@jspsych/plugin-survey-text@2.0.4/dist/index.browser.min.js",
+
+      "experiment.js",
+      
+      "static/css/jspsych.css",
+      "style.css"
+    ],
+
+    "exp_id": "discount_titrate",
+    "cognitive_atlas_task_id": "trm_566748c929afc",
+    "contributors": [
+      "Zeynep Enkavi",
+      "Ian Eisenberg",
+      "Patrick Bissett",
+      "Vanessa Sochat",
+      "Russell Poldrack"
+    ],
+    "time": 5,
+    "reference": "http://www.nature.com/neuro/journal/v13/n5/extref/nn.2516-S1.pdf",
+    "publish": "True",
+    "experiment_variables": [
+      {
+        "name": "credit_var",
+        "type": "credit",
+        "datatype": "boolean",
+        "description": "True if avg_rt > 200"
+      }
+    ],
+    "deployment_variables": {
+      "jspsych_init": {
+        "fullscreen": true,
+        "display_element": "getDisplayElement",
+        "on_trial_finish": "addID('discount_titrate')"
+      }
+    }
+  }
 ]
