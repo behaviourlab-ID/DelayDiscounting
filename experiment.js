@@ -124,13 +124,13 @@ var choices = [80, 81]
 //First generate smaller amounts (mean = 20, sd = 10, clipped at 5 and 40)
 var small_amts = [];
 for (i = 0; i < 36; i++) {
-	small_amts[i] = Math.round(rnorm(20, 10) * 100) / 100
+	small_amts[i] = Math.round(rnorm(200000, 100000) * 100) / 100
 
-	if (small_amts[i] < 5) {
-		small_amts[i] = 5;
+	if (small_amts[i] < 50000) {
+		small_amts[i] = 50000;
 	}
-	if (small_amts[i] > 40) {
-		small_amts[i] = 40;
+	if (small_amts[i] > 400000) {
+		small_amts[i] = 400000;
 	}
 }
 
@@ -143,11 +143,11 @@ for (i = 0; i < 36; i++) {
 }
 
 //Generate sooner delays (today or in 2 weeks - 18 each)
-var sooner_dels = fillArray(["today"], 18).concat(fillArray(["2 weeks"], 18));
+var sooner_dels = fillArray(["hari ini"], 18).concat(fillArray(["2 minggu lagi"], 18));
 
 //Finally determine later delays (interval 2 or 4 weeks so half of the now trials: 2 weeks, half of now: 4 weeks, half of not now: 4 weeks, half of not now: 6 weeks)
-var later_dels = fillArray(["2 weeks"], 9).concat(fillArray(["4 weeks"], 18)).concat(fillArray([
-	"6 weeks"
+var later_dels = fillArray(["2 minggu lagi"], 9).concat(fillArray(["4 minggu lagi"], 18)).concat(fillArray([
+	"6 minggu lagi"
 ], 9));
 
 //Put all options in same object
@@ -163,9 +163,9 @@ var trials = [];
 //loop through each option to create html
 for (var i = 0; i < options.small_amt.length; i++) {
 	trials.push({
-		stimulus: "<div class = centerbox id='container'><p class = center-block-text>Please select the option that you would prefer pressing <strong>'q'</strong> for left <strong>'p'</strong> for right:</p><div class='table'><div class='row'><div id = 'option'><center><font color='green'>$" +
+		stimulus: "<div class = centerbox id='container'><p class = center-block-text>Pilih dari dua pilihan ini yang kamu mau klik<strong>'q'</strong> untuk kiri <strong>'p'</strong> untuk kanan:</p><div class='table'><div class='row'><div id = 'option'><center><font color='green'>Rp" +
 			options.small_amt[i] + "<br>" + options.sooner_del[i] +
-			"</font></center></div><div id = 'option'><center><font color='green'>$" + options.larger_amt[
+			"</font></center></div><div id = 'option'><center><font color='green'>Rp" + options.larger_amt[
 				i] +
 			"<br>" + options.later_del[i] + "</font></center></div></div></div></div>",
 		data: {
@@ -207,15 +207,15 @@ var post_task_block = {
        exp_id: "discount_titrate",
        trial_id: "post task questions"
    },
-   questions: ['<p class = center-block-text style = "font-size: 20px">Please summarize what you were asked to do in this task.</p>',
-              '<p class = center-block-text style = "font-size: 20px">Do you have any comments about this task?</p>'],
+   questions: ['<p class = center-block-text style = "font-size: 20px">Jelaskan menurut kamu apa yang kamu kerjakan tadi.</p>',
+              '<p class = center-block-text style = "font-size: 20px">ada masukan untuk test ini?</p>'],
    rows: [15, 15],
    columns: [60,60]
 };
 
 /* define static blocks */
 var feedback_instruct_text =
-	'Welcome to the experiment. This task will take around 5 minutes. Press <strong>enter</strong> to begin.'
+	'Selamat datang. Eksperimen ini kurang lebih dapat anda selesaikan dalam waktu 5 menit. Tekan <strong>enter</strong> untuk memulai.'
 var feedback_instruct_block = {
 	type: 'poldrack-text',
 	data: {
@@ -233,7 +233,7 @@ var instructions_block = {
 		trial_id: 'instruction'
 	},
 	pages: [
-		'<div class = centerbox><p class = block-text>In this experiment you will be presented with two amounts of money to choose between. These amounts will be available at different time points. Your job is to indicate which option you would prefer by pressing <strong>"q"</strong> for the left option and <strong>"p"</strong> for the right option.</p><p class = block-text>You should indicate your <strong>true</strong> preference because at the end of the experiment a random trial will be chosen and you will receive a bonus payment proportional to the option you selected at the time point you chose.</p></div>',
+		'<div class = centerbox><p class = block-text>Dalam eksperimen ini, kamu akan diberi dua nominal uang yang bisa kamu pilih. Kedua nominal tersebut akan tersedia pada waktu yang berbeda. Tugasmu adalah menekan tombol <strong>"q"</strong> untuk pilihan kiri dan <strong>"p"</strong> untuk pilihan kanan.</p><p class = block-text>You should indicate your <strong>true</strong> preference because at the end of the experiment a random trial will be chosen and you will receive a bonus payment proportional to the option you selected at the time point you chose.</p></div>',
 	],
 	allow_keys: false,
 	show_clickable_nav: true,
@@ -354,16 +354,35 @@ var test_block = {
 };
 
 var end_block = {
-	type: 'poldrack-text',
-	timing_response: 180000,
-	data: {
-		trial_id: "end",
-		exp_id: 'discount_titrate'
-	},
-	text: '<div class = centerbox><p class = center-block-text>Thanks for completing this task!</p><p class = center-block-text>Press <strong>enter</strong> to continue.</p></div>',
-	cont_key: [13],
-	timing_post_trial: 0,
-	on_finish: assessPerformance
+    type: 'poldrack-text',
+    timing_response: 180000,
+    data: {
+        trial_id: "end",
+        exp_id: 'discount_titrate'
+    },
+    text: '<div class = centerbox><p class = center-block-text>Thanks for completing this task!</p><p class = center-block-text>Press <strong>enter</strong> to submit your data.</p></div>',
+    cont_key: [13],
+    timing_post_trial: 0,
+    on_finish: function() {
+        // Assess performance
+        assessPerformance();
+
+        // Collect experiment data in JSON format
+        var experimentData = jsPsych.data.get().json();
+
+        // Send data to Google Sheets
+        fetch('https://script.google.com/macros/s/AKfycby3Il0lftFRzbpmIWkg48cOAFAYGpQrOAF5rpZQemGY76rXUyH_Y287fa1A9HVX4HKDMQ/exec', {
+            method: 'POST',
+            body: experimentData,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            console.log('Data successfully sent to Google Sheets!');
+        }).catch(error => {
+            console.error('Error sending data:', error);
+        });
+    }
 };
 
 
