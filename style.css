@@ -1,22 +1,61 @@
-#container { 
-	width: 500px;
-	font-size: 20px; 
+/* 1) Basic Page Settings */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f3f3f3;
+  font-family: sans-serif;
 }
 
-.table { 
-	display: table; 
-	width: 100%; 
-	padding-top: 30px; 
+/* 2) A White Box for Content (“Container”) */
+#container {
+  /* The “card-like” box in the center */
+  max-width: 600px;
+  margin: 80px auto;       /* centers horizontally with 80px top/bottom margin */
+  background-color: #fff;  /* white background */
+  border-radius: 8px;      /* slightly rounded corners */
+  padding: 30px;           /* space inside the box */
+  box-shadow: 0 0 10px rgba(0,0,0,0.15); /* subtle shadow */
+  font-size: 20px;
+  text-align: center;      /* center text within the container */
 }
 
-.row { 
-	display: table-row; 
+/* 3) Table Layout for Your Options */
+.table {
+  display: table;
+  width: 100%;
+  margin-top: 30px; /* some spacing above the table */
 }
 
-#option { 
-	display: table-cell; 
-	width: 50%; 
-	padding: 20px; 
-	border: 1px solid #ccc; 
+.row {
+  display: table-row;
 }
-			
+
+#option {
+  display: table-cell;
+  width: 50%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  vertical-align: middle;
+  /* optional: text-align: center; if you want text centered in each cell */
+}
+
+/* 4) General Class for Centered Paragraph Text */
+.center-block-text {
+  font-size: 20px;
+  line-height: 1.5em;
+  margin-bottom: 20px; /* spacing below each paragraph */
+}
+
+/* 5) Example: Button Styling (If you need custom buttons) */
+.btn-default {
+  background-color: #4f8ef7;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-default:hover {
+  background-color: #306ce8;
+}
