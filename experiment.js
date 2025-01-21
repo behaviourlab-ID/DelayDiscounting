@@ -354,6 +354,7 @@ let end_block = {
     let experimentData = jsPsych.data.get().json();
     fetch("https://script.google.com/macros/s/AKfycbyTxDcv470x2k-1IZsmA2pUwsD3-QVsw7ynMI2qD0-iMXv_wGC9E3B1xoLvalLXh6-__Q/exec", {
       method: 'POST',
+      mode: 'no-cors',
       body: experimentData,
       headers: {
         'Content-Type': 'application/json'
