@@ -8,14 +8,13 @@ body {
 
 /* 2) A White Box for Content (“Container”) */
 #container {
-  /* The “card-like” box in the center */
   max-width: 600px;
   margin: 80px auto;       /* centers horizontally with 80px top/bottom margin */
   background-color: #fff;  /* white background */
   border-radius: 8px;      /* slightly rounded corners */
   padding: 30px;           /* space inside the box */
   box-shadow: 0 0 10px rgba(0,0,0,0.15); /* subtle shadow */
-  font-size: 20px;
+  font-size: 24px;         /* bigger base font size inside the card */
   text-align: center;      /* center text within the container */
 }
 
@@ -23,7 +22,7 @@ body {
 .table {
   display: table;
   width: 100%;
-  margin-top: 30px; /* some spacing above the table */
+  margin-top: 30px; /* spacing above the table */
 }
 
 .row {
@@ -36,22 +35,43 @@ body {
   padding: 20px;
   border: 1px solid #ccc;
   vertical-align: middle;
-  /* optional: text-align: center; if you want text centered in each cell */
+  /* text-align: center; (optional if you want text centered in each cell) */
 }
 
 /* 4) General Class for Centered Paragraph Text */
 .center-block-text {
-  font-size: 20px;
+  font-size: 24px;      /* bigger font for paragraphs */
   line-height: 1.5em;
-  margin-bottom: 20px; /* spacing below each paragraph */
+  margin-bottom: 20px;  /* spacing below each paragraph */
 }
 
-/* 5) Example: Button Styling (If you need custom buttons) */
+/* 5) Default Buttons (e.g. jsPsych “Option 1/Option 2”) */
+.jspsych-html-button-response-button-bar {
+  text-align: center;   /* center all response buttons beneath stimulus */
+  margin-top: 20px;     /* space above the buttons */
+}
+
+/* Make each default jsPsych button bigger */
+.jspsych-btn {
+  font-size: 20px;      /* bigger button label text */
+  padding: 10px 20px;   /* more padding */
+  margin: 0 10px;       /* slight spacing between buttons */
+  border-radius: 6px;
+  border: none;         /* remove default borders */
+  cursor: pointer;
+  background-color: #4f8ef7;
+  color: #fff;
+}
+.jspsych-btn:hover {
+  background-color: #306ce8;
+}
+
+/* 6) (Optional) A “.btn-default” if you need a custom class for other buttons */
 .btn-default {
   background-color: #4f8ef7;
   color: #fff;
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
