@@ -235,7 +235,25 @@ let practice_trial = {
   }
 };
 
-// 4D) Main test block -> 36 trials with random amounts
+// 4D) comprehension check
+let comprehension_block = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `
+    <div id="container">
+      <p class="center-block-text">
+        Apakah kamu sudah mengerti apa yang harus kamu lakukan?
+      </p>
+      <p class="center-block-text">
+        Jika ya, klik tombol di bawah untuk memulai sesi utama.
+      </p>
+    </div>
+  `,
+  choices: ["Ya, saya mengerti!"],   // single button
+  data: { trial_id: "comprehension_check" }
+};
+
+
+// 4E) Main test block -> 36 trials with random amounts
 //    We'll embed the amounts & 2 buttons in the stimulus
 let main_test_block = {
   timeline: trials.map((t, i) => {
@@ -306,7 +324,7 @@ let main_test_block = {
   randomize_order: true
 };
 
-// 4E) Post-task survey
+// 4F) Post-task survey
 let post_task_block = {
   type: jsPsychSurveyText,
   questions: [
@@ -316,7 +334,7 @@ let post_task_block = {
   data: { exp_id: "discount_titrate", trial_id: "post_task_questions" }
 };
 
-// 4F) End block
+// 4G) End block
 let end_block = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
@@ -350,6 +368,7 @@ let timeline = [];
 timeline.push(intro_block);
 timeline.push(instructions_block);
 timeline.push(practice_trial);
+timeline.push(comprehension_block);
 timeline.push(main_test_block);
 timeline.push(post_task_block);
 timeline.push(end_block);
