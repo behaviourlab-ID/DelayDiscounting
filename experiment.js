@@ -138,6 +138,15 @@ const jsPsych = initJsPsych({
   }
 });
 
+
+// ============ 3b) Read the URL parameter and add to jsPsych data ============
+const urlParams = new URLSearchParams(window.location.search);
+const participantId = urlParams.get('participant_id'); 
+jsPsych.data.addProperties({
+  participant_id: participantId
+});
+
+
 // ============ 4) Build Trials ============
 
 // 4A) Introduction (single custom button inside plugin)
