@@ -186,13 +186,14 @@ const jsPsych = initJsPsych({
 
 // Instruction & Feedback
 let feedback_instruct_text =
-  'Selamat datang. Eksperimen ini dapat diselesaikan dalam ±5 menit. Tekan <strong>Enter</strong> untuk memulai.';
+  'Selamat datang. Eksperimen ini dapat diselesaikan dalam ±5 menit. ' +
+  'Silakan klik tombol di bawah untuk memulai.';
 
 let feedback_instruct_block = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: getInstructFeedback,
-  choices: ['Enter'], 
-  data: { trial_id: 'instruction' }
+  type: jsPsychHtmlButtonResponse,  // was jsPsychHtmlKeyboardResponse
+  stimulus: getInstructFeedback(),  // call the function so it returns a string
+  choices: ["Mulai"],               // single button labeled "Mulai"
+  data: { trial_id: "instruction" }
 };
 
 let instructions_block = {
