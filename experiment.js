@@ -190,7 +190,7 @@ let practice_trial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
     <div id="container">
-      <p class="center-block-text">Contoh:</p>
+      <p class="center-block-text">Contoh: pilih mana yang kamu mau. mendapatkan uang sebesar .....</p>
       <div class="table">
         <div class="row">
           <div id="option">
@@ -203,8 +203,8 @@ let practice_trial = {
       </div>
       <!-- Our custom clickable buttons in the middle of the card -->
       <div style="margin-top:30px;">
-        <button id="option1-btn" class="jspsych-btn">Opsi 1</button>
-        <button id="option2-btn" class="jspsych-btn">Opsi 2</button>
+        <button id="option1-btn" class="jspsych-btn">Opsi 1 (kiri)</button>
+        <button id="option2-btn" class="jspsych-btn">Opsi 2 (kanan)</button>
       </div>
     </div>
   `,
@@ -263,7 +263,7 @@ let main_test_block = {
       type: jsPsychHtmlButtonResponse,
       stimulus: `
         <div id="container">
-          <p class="center-block-text">Pilih option mana yang kamu mau:</p>
+          <p class="center-block-text">Pilih mana yang kamu mau. Mendapatkan uang sebesar .....:</p>
           <div class="table">
             <div class="row">
               <div id="option">
@@ -276,8 +276,8 @@ let main_test_block = {
           </div>
           <!-- Insert two custom buttons below the card -->
           <div style="margin-top:30px;">
-            <button id="option1-btn" class="jspsych-btn">Opsi 1</button>
-            <button id="option2-btn" class="jspsych-btn">Opsi 2</button>
+            <button id="option1-btn" class="jspsych-btn">pilihan 1 (kiri)</button>
+            <button id="option2-btn" class="jspsych-btn">pilihan 2 (kanan)</button>
           </div>
         </div>
       `,
