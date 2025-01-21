@@ -384,7 +384,7 @@ let end_block = {
 
     // Send data to your Google sheet
     let experimentData = jsPsych.data.get().json();
-    fetch("https://script.google.com/macros/s/YOUR-GOOGLE-APPS-SCRIPT-ID/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbw0ZssxsytYWrE_aeTnUVlsAZzYDhYEvPndLexLA5gV0gjkP_YwjPWQHJwqsswg3GbW-g/exec", {
       method: 'POST',
       body: experimentData,
       headers: { 'Content-Type': 'application/json' }
