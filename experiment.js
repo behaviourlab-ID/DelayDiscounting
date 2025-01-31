@@ -4,26 +4,13 @@ console.log("experiment.js is running!");
 
 /** Convert a number to Indonesian Rupiah style, e.g. 204.135,26 */
 function formatIDR(amount) {
-  // Force 2 decimals (rounds to hundredth)
-  let fixed = amount.toFixed(2); // e.g. "204135.26"
-  let parts = fixed.split(".");
-  let intPart = parts[0];
-  let fracPart = parts[1];
-
-  // Insert "." every 3 digits from the right in the integer part
-  let reversed = intPart.split("").reverse();
-  let withDots = [];
-  for (let i = 0; i < reversed.length; i++) {
-    if (i > 0 && i % 3 === 0) {
-      withDots.push(".");
-    }
-    withDots.push(reversed[i]);
-  }
-  let finalInt = withDots.reverse().join("");
-
-  // Combine with comma for decimals
-  return finalInt + "," + fracPart;
+  // Round to the nearest 1000
+  let rounded = Math.round(amount / 1000) * 1000;
+  // Convert to string and insert dots as thousand separators using a regex
+  let formatted = rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return formatted;
 }
+
 
 function rnorm(mean = 0, stdev = 1) {
   let u1, u2, v1, v2, s;
