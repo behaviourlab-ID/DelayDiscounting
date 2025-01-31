@@ -4,7 +4,7 @@ console.log("experiment.js is running!");
 
 /** Convert a number to Indonesian Rupiah style, e.g. 204.135,26 */
 function formatIDR(amount) {
-  // Force 2 decimals
+  // Force 2 decimals (rounds to hundredth)
   let fixed = amount.toFixed(2); // e.g. "204135.26"
   let parts = fixed.split(".");
   let intPart = parts[0];
@@ -25,7 +25,7 @@ function formatIDR(amount) {
   return finalInt + "," + fracPart;
 }
 
-function rnorm(mean=0, stdev=1) {
+function rnorm(mean = 0, stdev = 1) {
   let u1, u2, v1, v2, s;
   if (rnorm.v2 === null) {
     do {
@@ -46,8 +46,8 @@ rnorm.v2 = null;
 
 function fillArray(value, len) {
   let arr = [];
-  for (let i=0; i<len; i++){
-    for (let j=0; j<value.length; j++){
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < value.length; j++) {
       arr.push(value[j]);
     }
   }
@@ -72,14 +72,14 @@ function assessPerformance() {
     else rt_array.push(d.rt);
   }
 
-  rt_array.sort((a,b)=>a-b);
+  rt_array.sort((a, b) => a - b);
   let avg_rt = -1;
   if (rt_array.length > 0) {
-    let mid = Math.floor(rt_array.length/2);
+    let mid = Math.floor(rt_array.length / 2);
     if (rt_array.length % 2 === 1) {
       avg_rt = rt_array[mid];
     } else {
-      avg_rt = (rt_array[mid-1] + rt_array[mid]) / 2;
+      avg_rt = (rt_array[mid - 1] + rt_array[mid]) / 2;
     }
   }
 
@@ -93,34 +93,33 @@ function assessPerformance() {
   });
 }
 
-
-// ============ 2) Global Vars ============
+// ============ 2) Global Variables ============
 let bonus_list = [];
 
-// Generate random amounts
+// Generate 36 random smaller amounts (rounded to 2 decimals)
 let small_amts = [];
-for (let i=0; i<36; i++) {
-  let val = Math.round(rnorm(200000,100000)*100)/100;
+for (let i = 0; i < 36; i++) {
+  let val = Math.round(rnorm(200000, 100000) * 100) / 100;
   if (val < 50000) val = 50000;
   if (val > 400000) val = 400000;
   small_amts.push(val);
 }
-let rel_dif = fillArray([1.01,1.05,1.10,1.15,1.20,1.25,1.30,1.50,1.75],4);
+let rel_dif = fillArray([1.01, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.50, 1.75], 4);
 let larger_amts = [];
-for (let i=0; i<36; i++) {
-  let val = Math.round(small_amts[i]*rel_dif[i]*100)/100;
+for (let i = 0; i < 36; i++) {
+  let val = Math.round(small_amts[i] * rel_dif[i] * 100) / 100;
   larger_amts.push(val);
 }
 
 // Delays
-let sooner_dels = fillArray(["hari ini"],18).concat(fillArray(["2 minggu lagi"],18));
-let later_dels = fillArray(["2 minggu lagi"],9)
-  .concat(fillArray(["4 minggu lagi"],18))
-  .concat(fillArray(["6 minggu lagi"],9));
+let sooner_dels = fillArray(["hari ini"], 18).concat(fillArray(["2 minggu lagi"], 18));
+let later_dels = fillArray(["2 minggu lagi"], 9)
+  .concat(fillArray(["4 minggu lagi"], 18))
+  .concat(fillArray(["6 minggu lagi"], 9));
 
-// Build 36 test trials
+// Build 36 test trials (store amounts as numbers; formatting happens later)
 let trials = [];
-for (let i=0; i<36; i++){
+for (let i = 0; i < 36; i++) {
   trials.push({
     trial_id: "stim",
     smaller_amount: small_amts[i],
@@ -130,31 +129,27 @@ for (let i=0; i<36; i++){
   });
 }
 
-
-// ============ 3) Init jsPsych ============
+// ============ 3) Initialize jsPsych ============
 const jsPsych = initJsPsych({
   on_finish: () => {
     console.log("Experiment finished.");
   }
 });
 
-
-// ============ 3b) Read the URL parameter and add to jsPsych data ============
+// 3b) Read URL parameter and attach auto-generated ID (if applicable)
 const urlParams = new URLSearchParams(window.location.search);
 const participantId = urlParams.get('participant_id'); 
 jsPsych.data.addProperties({
   participant_id: participantId
 });
 
-
 // ============ 4) Build Trials ============
 
-// 4A) Introduction (single custom button inside plugin)
+// 4A) Introduction (single button)
 let intro_text = `
   Selamat datang. Eksperimen ini dapat diselesaikan dalam ±5 menit.
   Silakan klik "Mulai" untuk memulai.
 `;
-
 let intro_block = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
@@ -166,7 +161,7 @@ let intro_block = {
   data: { trial_id: "intro" }
 };
 
-// 4B) Instructions (jsPsychInstructions with next button)
+// 4B) Instructions (multi-page with buttons)
 let instructions_block = {
   type: jsPsychInstructions,
   pages: [
@@ -176,7 +171,7 @@ let instructions_block = {
          Klik salah satu pilihan untuk memilih.
        </p>
        <p class="center-block-text">
-         Mohon untuk mengisi survey ini <strong>sejujur mungkin</strong> sesuai dengan pendapat anda.
+         Mohon untuk mengisi survey ini <strong>sejujur mungkin</strong> sesuai dengan pendapat kamu.
        </p>
      </div>`
   ],
@@ -185,30 +180,31 @@ let instructions_block = {
   data: { trial_id: "instructions" }
 };
 
-// 4C) Practice trial (custom approach with two embedded buttons *inside* the card)
+// 4C) Practice trial (with custom embedded buttons inside the card)
+// Note: Using formatIDR() to display static practice amounts.
 let practice_trial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
     <div id="container">
-      <p class="center-block-text">Contoh: pilih mana yang kamu mau. mendapatkan uang sebesar .....</p>
+      <p class="center-block-text">Contoh: pilih mana yang kamu mau. (Nilai tidak masuk bonus)</p>
       <div class="table">
         <div class="row">
           <div id="option">
-            <center><font color='green'>Rp20.000<br>hari ini</font></center>
+            <center><font color='green'>Rp${formatIDR(20000)}<br>hari ini</font></center>
           </div>
           <div id="option">
-            <center><font color='green'>Rp25.000<br>2 minggu lagi</font></center>
+            <center><font color='green'>Rp${formatIDR(25000)}<br>Dua minggu lagi</font></center>
           </div>
         </div>
       </div>
-      <!-- Our custom clickable buttons in the middle of the card -->
+      <!-- Custom buttons embedded inside the card -->
       <div style="margin-top:30px;">
         <button id="option1-btn" class="jspsych-btn">Opsi 1 (kiri)</button>
         <button id="option2-btn" class="jspsych-btn">Opsi 2 (kanan)</button>
       </div>
     </div>
   `,
-  choices: [],  // no default plugin buttons
+  choices: [], // no default buttons
   data: {
     trial_id: "stim",
     exp_stage: "practice",
@@ -218,7 +214,6 @@ let practice_trial = {
     later_delay: "2 minggu lagi"
   },
   on_load: function() {
-    // On click => finish the trial
     document.getElementById("option1-btn").addEventListener("click", () => {
       jsPsych.finishTrial({ response: 0 });
     });
@@ -226,7 +221,7 @@ let practice_trial = {
       jsPsych.finishTrial({ response: 1 });
     });
   },
-  on_finish: function(data){
+  on_finish: function(data) {
     if (data.response === 0) {
       data.choice = "smaller_sooner";
     } else if (data.response === 1) {
@@ -235,26 +230,20 @@ let practice_trial = {
   }
 };
 
-// 4D) comprehension check
+// 4D) Comprehension Check
 let comprehension_block = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
     <div id="container">
-      <p class="center-block-text">
-        Apakah kamu sudah mengerti apa yang harus kamu lakukan?
-      </p>
-      <p class="center-block-text">
-        Jika ya, klik tombol di bawah untuk memulai sesi utama.
-      </p>
+      <p class="center-block-text">Apakah kamu sudah mengerti apa yang harus kamu lakukan?</p>
+      <p class="center-block-text">Jika ya, klik tombol di bawah untuk memulai sesi utama.</p>
     </div>
   `,
-  choices: ["Ya, saya mengerti!"],   // single button
+  choices: ["Ya, saya mengerti!"],
   data: { trial_id: "comprehension_check" }
 };
 
-
-// 4E) Main test block -> 36 trials with random amounts
-//    We'll embed the amounts & 2 buttons in the stimulus
+// 4E) Main test block – 36 trials with random amounts and delays
 let main_test_block = {
   timeline: trials.map((t, i) => {
     let small_str = formatIDR(t.smaller_amount);
@@ -263,7 +252,7 @@ let main_test_block = {
       type: jsPsychHtmlButtonResponse,
       stimulus: `
         <div id="container">
-          <p class="center-block-text">Pilih mana yang kamu mau. Mendapatkan uang sebesar .....:</p>
+          <p class="center-block-text">Pilih mana yang kamu mau:</p>
           <div class="table">
             <div class="row">
               <div id="option">
@@ -274,14 +263,14 @@ let main_test_block = {
               </div>
             </div>
           </div>
-          <!-- Insert two custom buttons below the card -->
+          <!-- Custom buttons placed within the card -->
           <div style="margin-top:30px;">
-            <button id="option1-btn" class="jspsych-btn">pilihan 1 (kiri)</button>
-            <button id="option2-btn" class="jspsych-btn">pilihan 2 (kanan)</button>
+            <button id="option1-btn" class="jspsych-btn">Pilihan 1 (kiri)</button>
+            <button id="option2-btn" class="jspsych-btn">Pilihan 2 (kanan)</button>
           </div>
         </div>
       `,
-      choices: [],  // no default plugin buttons
+      choices: [],
       data: {
         trial_id: "stim",
         smaller_amount: t.smaller_amount,
@@ -290,7 +279,6 @@ let main_test_block = {
         later_delay: t.later_delay
       },
       on_load: function() {
-        // attach event listeners to finish trial with response=0 or 1
         document.getElementById("option1-btn").addEventListener("click", () => {
           jsPsych.finishTrial({ response: 0 });
         });
@@ -299,8 +287,6 @@ let main_test_block = {
         });
       },
       on_finish: function(d) {
-        // if response=0 => user picked smaller_sooner
-        // if response=1 => user picked larger_later
         let choice = "";
         let chosen_amount = 0;
         let chosen_delay = "";
@@ -313,7 +299,6 @@ let main_test_block = {
           chosen_amount = d.larger_amount;
           chosen_delay = d.later_delay;
         }
-        // record data
         d.choice = choice;
         d.chosen_amount = chosen_amount;
         d.chosen_delay = chosen_delay;
@@ -334,7 +319,7 @@ let post_task_block = {
   data: { exp_id: "discount_titrate", trial_id: "post_task_questions" }
 };
 
-// 4G) End block
+// 4G) End block (single button)
 let end_block = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
@@ -349,10 +334,10 @@ let end_block = {
     assessPerformance();
     let experimentData = jsPsych.data.get().json();
     fetch("https://script.google.com/macros/s/AKfycbz94V8VKPglM_v0aSXJ4jTVWlvNFrT6wruXTtBmuePKEN2gwkmt5K0mk3cqfhRbwH5TPQ/exec", {
-      method: 'POST',
-      mode: 'no-cors',        // if you want to bypass CORS
+      method: "POST",
+      mode: "no-cors", // bypass CORS checks if needed
       body: experimentData,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { "Content-Type": "application/json" }
     })
     .then(response => {
       console.log("Data successfully sent (no-cors)!");
@@ -374,4 +359,3 @@ timeline.push(post_task_block);
 timeline.push(end_block);
 
 jsPsych.run(timeline);
-
