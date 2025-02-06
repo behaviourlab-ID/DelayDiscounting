@@ -13,7 +13,7 @@ body {
   background-color: #fff;  /* white background */
   border-radius: 8px;      /* slightly rounded corners */
   padding: 30px;           /* space inside the box */
-  box-shadow: 0 0 10px rgba(0,0,0,0.15); /* subtle shadow */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* subtle shadow */
   font-size: 24px;         /* bigger base font size inside the card */
   text-align: center;      /* center text within the container */
 }
@@ -35,7 +35,6 @@ body {
   padding: 20px;
   border: 1px solid #ccc;
   vertical-align: middle;
-  /* text-align: center; (optional if you want text centered in each cell) */
 }
 
 /* 4) General Class for Centered Paragraph Text */
@@ -78,4 +77,47 @@ body {
 }
 .btn-default:hover {
   background-color: #306ce8;
+}
+
+/* 7) Responsive Adjustments for Mobile Devices */
+@media (max-width: 600px) {
+  /* Reduce container margins and padding for smaller screens */
+  #container {
+    margin: 40px 10px;       /* less margin for mobile */
+    padding: 20px;           /* reduced padding */
+    font-size: 20px;         /* slightly smaller base font size */
+  }
+  
+  /* Adjust table layout: stack options vertically */
+  .table {
+    display: block;
+    margin-top: 20px;
+  }
+  
+  .row {
+    display: block;
+  }
+  
+  /* Make each option fill the width and add spacing between them */
+  #option {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Adjust text sizes for better readability */
+  .center-block-text {
+    font-size: 20px;
+  }
+  
+  /* Make buttons full-width for easier tapping on mobile */
+  .jspsych-btn,
+  .btn-default {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 18px;
+  }
 }
