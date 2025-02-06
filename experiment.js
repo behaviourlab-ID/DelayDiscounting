@@ -173,7 +173,7 @@ let practice_trial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
     <div id="container">
-      <p class="center-block-text">Contoh: pilih mana yang kamu mau. (Nilai tidak masuk bonus)</p>
+      <p class="center-block-text">Contoh: pilih mana yang kamu mau.</p>
       <div class="table">
         <div class="row">
           <div id="option">
@@ -186,8 +186,8 @@ let practice_trial = {
       </div>
       <!-- Custom buttons embedded inside the card -->
       <div style="margin-top:30px;">
-        <button id="option1-btn" class="jspsych-btn">Opsi 1 (kiri)</button>
-        <button id="option2-btn" class="jspsych-btn">Opsi 2 (kanan)</button>
+        <button id="option1-btn" class="jspsych-btn">Pilihan 1</button>
+        <button id="option2-btn" class="jspsych-btn">Pilihan 2</button>
       </div>
     </div>
   `,
@@ -252,8 +252,8 @@ let main_test_block = {
           </div>
           <!-- Custom buttons placed within the card -->
           <div style="margin-top:30px;">
-            <button id="option1-btn" class="jspsych-btn">Pilihan 1 (kiri)</button>
-            <button id="option2-btn" class="jspsych-btn">Pilihan 2 (kanan)</button>
+            <button id="option1-btn" class="jspsych-btn">Pilihan 1</button>
+            <button id="option2-btn" class="jspsych-btn">Pilihan 2</button>
           </div>
         </div>
       `,
