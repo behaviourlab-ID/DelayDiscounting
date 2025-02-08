@@ -13,7 +13,7 @@ body {
   background-color: #fff;  /* white background */
   border-radius: 8px;      /* slightly rounded corners */
   padding: 30px;           /* space inside the box */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* subtle shadow */
+  box-shadow: 0 0 10px rgba(0,0,0,0.15); /* subtle shadow */
   font-size: 24px;         /* bigger base font size inside the card */
   text-align: center;      /* center text within the container */
 }
@@ -29,12 +29,19 @@ body {
   display: table-row;
 }
 
-#option {
+/* Changed from id "option" to class "option" to allow multiple clickable items */
+.option {
   display: table-cell;
   width: 50%;
   padding: 20px;
   border: 1px solid #ccc;
   vertical-align: middle;
+  cursor: pointer;             /* indicates the cell is clickable */
+  transition: background-color 0.3s ease;
+}
+
+.option:hover {
+  background-color: #e6f0ff;   /* subtle highlight on hover */
 }
 
 /* 4) General Class for Centered Paragraph Text */
@@ -44,13 +51,12 @@ body {
   margin-bottom: 20px;  /* spacing below each paragraph */
 }
 
-/* 5) Default Buttons (e.g. jsPsych “Option 1/Option 2”) */
+/* 5) Default Buttons (if still needed elsewhere) */
 .jspsych-html-button-response-button-bar {
   text-align: center;   /* center all response buttons beneath stimulus */
   margin-top: 20px;     /* space above the buttons */
 }
 
-/* Make each default jsPsych button bigger */
 .jspsych-btn {
   font-size: 20px;      /* bigger button label text */
   padding: 10px 20px;   /* more padding */
@@ -65,7 +71,6 @@ body {
   background-color: #306ce8;
 }
 
-/* 6) (Optional) A “.btn-default” if you need a custom class for other buttons */
 .btn-default {
   background-color: #4f8ef7;
   color: #fff;
@@ -79,16 +84,14 @@ body {
   background-color: #306ce8;
 }
 
-/* 7) Responsive Adjustments for Mobile Devices */
+/* 6) Responsive Adjustments for Mobile Devices */
 @media (max-width: 600px) {
-  /* Reduce container margins and padding for smaller screens */
   #container {
     margin: 40px 10px;       /* less margin for mobile */
     padding: 20px;           /* reduced padding */
     font-size: 20px;         /* slightly smaller base font size */
   }
   
-  /* Adjust table layout: stack options vertically */
   .table {
     display: block;
     margin-top: 20px;
@@ -98,8 +101,7 @@ body {
     display: block;
   }
   
-  /* Make each option fill the width and add spacing between them */
-  #option {
+  .option {
     display: block;
     width: 100%;
     padding: 15px;
@@ -107,12 +109,10 @@ body {
     border: 1px solid #ccc;
   }
   
-  /* Adjust text sizes for better readability */
   .center-block-text {
     font-size: 20px;
   }
   
-  /* Make buttons full-width for easier tapping on mobile */
   .jspsych-btn,
   .btn-default {
     width: 100%;
