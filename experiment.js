@@ -11,7 +11,6 @@ function formatIDR(amount) {
   return formatted;
 }
 
-
 function rnorm(mean = 0, stdev = 1) {
   let u1, u2, v1, v2, s;
   if (rnorm.v2 === null) {
@@ -167,8 +166,7 @@ let instructions_block = {
   data: { trial_id: "instructions" }
 };
 
-// 4C) Practice trial (with custom embedded buttons inside the card)
-// Note: Using formatIDR() to display static practice amounts.
+// 4C) Practice trial with clickable options (no extra buttons)
 let practice_trial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `
@@ -176,18 +174,14 @@ let practice_trial = {
       <p class="center-block-text">Contoh: pilih mana yang kamu mau.</p>
       <div class="table">
         <div class="row">
-          <div id="option">
+          <!-- Note: using class "option" with data-choice attribute -->
+          <div class="option" data-choice="0">
             <center><font color='green'>Rp${formatIDR(20000)}<br>hari ini</font></center>
           </div>
-          <div id="option">
+          <div class="option" data-choice="1">
             <center><font color='green'>Rp${formatIDR(25000)}<br>Dua minggu lagi</font></center>
           </div>
         </div>
-      </div>
-      <!-- Custom buttons embedded inside the card -->
-      <div style="margin-top:30px;">
-        <button id="option1-btn" class="jspsych-btn">Pilihan 1</button>
-        <button id="option2-btn" class="jspsych-btn">Pilihan 2</button>
       </div>
     </div>
   `,
@@ -201,11 +195,12 @@ let practice_trial = {
     later_delay: "2 minggu lagi"
   },
   on_load: function() {
-    document.getElementById("option1-btn").addEventListener("click", () => {
-      jsPsych.finishTrial({ response: 0 });
-    });
-    document.getElementById("option2-btn").addEventListener("click", () => {
-      jsPsych.finishTrial({ response: 1 });
+    // Attach click event listeners to the option divs
+    document.querySelectorAll('.option').forEach(function(el) {
+      el.addEventListener("click", function() {
+        let response = parseInt(el.getAttribute("data-choice"));
+        jsPsych.finishTrial({ response: response });
+      });
     });
   },
   on_finish: function(data) {
@@ -242,18 +237,14 @@ let main_test_block = {
           <p class="center-block-text">Pilih mana yang kamu mau:</p>
           <div class="table">
             <div class="row">
-              <div id="option">
+              <!-- Clickable options with data-choice attribute -->
+              <div class="option" data-choice="0">
                 <center><font color='green'>Rp${small_str}<br>${t.sooner_delay}</font></center>
               </div>
-              <div id="option">
+              <div class="option" data-choice="1">
                 <center><font color='green'>Rp${large_str}<br>${t.later_delay}</font></center>
               </div>
             </div>
-          </div>
-          <!-- Custom buttons placed within the card -->
-          <div style="margin-top:30px;">
-            <button id="option1-btn" class="jspsych-btn">Pilihan 1</button>
-            <button id="option2-btn" class="jspsych-btn">Pilihan 2</button>
           </div>
         </div>
       `,
@@ -266,11 +257,12 @@ let main_test_block = {
         later_delay: t.later_delay
       },
       on_load: function() {
-        document.getElementById("option1-btn").addEventListener("click", () => {
-          jsPsych.finishTrial({ response: 0 });
-        });
-        document.getElementById("option2-btn").addEventListener("click", () => {
-          jsPsych.finishTrial({ response: 1 });
+        // Attach click event listeners to the option divs
+        document.querySelectorAll('.option').forEach(function(el) {
+          el.addEventListener("click", function() {
+            let response = parseInt(el.getAttribute("data-choice"));
+            jsPsych.finishTrial({ response: response });
+          });
         });
       },
       on_finish: function(d) {
