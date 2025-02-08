@@ -105,7 +105,7 @@ let later_dels = fillArray(["2 minggu lagi"], 9)
 
 // Build 36 test trials (store amounts as numbers; formatting happens later)
 let trials = [];
-for (let i = 0; i < 36; i++) {
+for (let i = 0; i < 20; i++) {
   trials.push({
     trial_id: "stim",
     smaller_amount: small_amts[i],
