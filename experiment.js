@@ -82,9 +82,9 @@ function assessPerformance() {
 // ============ 2) Global Variables ============
 let bonus_list = [];
 
-// Generate 36 random smaller amounts (rounded to 2 decimals)
+// Generate 20 random smaller amounts (rounded to 2 decimals)
 let small_amts = [];
-for (let i = 0; i < 36; i++) {
+for (let i = 0; i < 20; i++) {
   let val = Math.round(rnorm(200000, 100000) * 100) / 100;
   if (val < 50000) val = 50000;
   if (val > 400000) val = 400000;
@@ -92,7 +92,7 @@ for (let i = 0; i < 36; i++) {
 }
 let rel_dif = fillArray([1.01, 1.05, 1.10, 1.15, 1.20, 1.25, 1.30, 1.50, 1.75], 4);
 let larger_amts = [];
-for (let i = 0; i < 36; i++) {
+for (let i = 0; i < 20; i++) {
   let val = Math.round(small_amts[i] * rel_dif[i] * 100) / 100;
   larger_amts.push(val);
 }
