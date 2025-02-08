@@ -153,7 +153,7 @@ let instructions_block = {
   pages: [
     `<div id="container">
        <p class="center-block-text">
-         Kamu akan diberi dua nominal uang (Rp) yang berbeda dan tersedia pada waktu berbeda.
+         Kamu akan melihat dua jumlah uang yang berbeda, masing-masing tersedia di waktu yang berbeda.
          Klik salah satu pilihan untuk memilih.
        </p>
        <p class="center-block-text">
