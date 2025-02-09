@@ -330,7 +330,7 @@ let final_instruction_block = {
       </p>
     </div>
   `,
-  choices: ["Lanjut"],
+  choices: [],
   data: { trial_id: "final_instruction" }
 };
 
