@@ -103,7 +103,7 @@ let later_dels = fillArray(["2 minggu lagi"], 9)
   .concat(fillArray(["4 minggu lagi"], 18))
   .concat(fillArray(["6 minggu lagi"], 9));
 
-// Build 36 test trials (store amounts as numbers; formatting happens later)
+// Build 20 test trials (store amounts as numbers; formatting happens later)
 let trials = [];
 for (let i = 0; i < 20; i++) {
   trials.push({
@@ -225,7 +225,7 @@ let comprehension_block = {
   data: { trial_id: "comprehension_check" }
 };
 
-// 4E) Main test block – 36 trials with random amounts and delays
+// 4E) Main test block – 20 trials with random amounts and delays
 let main_test_block = {
   timeline: trials.map((t, i) => {
     let small_str = formatIDR(t.smaller_amount);
@@ -288,15 +288,7 @@ let main_test_block = {
   randomize_order: true
 };
 
-// 4F) Post-task survey
-let post_task_block = {
-  type: jsPsychSurveyText,
-  questions: [
-    { prompt: "Jelaskan menurut kamu apa yang kamu kerjakan tadi.", rows: 5, columns: 60 },
-    { prompt: "Ada masukan untuk tes ini?", rows: 5, columns: 60 }
-  ],
-  data: { exp_id: "discount_titrate", trial_id: "post_task_questions" }
-};
+// 4F) Post-task survey REMOVED
 
 // 4G) End block (single button)
 let end_block = {
@@ -327,6 +319,21 @@ let end_block = {
   }
 };
 
+// 4H) Final Instruction Block (additional page)
+let final_instruction_block = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `
+    <div id="container">
+      <p class="center-block-text">
+        Bagian ini sudah selesai dan data anda sudah tersimpan. <br>
+        Silahkan klik panah biru di pojok kanan bawah untuk melanjutkan.
+      </p>
+    </div>
+  `,
+  choices: ["Lanjut"],
+  data: { trial_id: "final_instruction" }
+};
+
 // ============ 5) Build Timeline & Run ============
 let timeline = [];
 timeline.push(intro_block);
@@ -334,7 +341,8 @@ timeline.push(instructions_block);
 timeline.push(practice_trial);
 timeline.push(comprehension_block);
 timeline.push(main_test_block);
-timeline.push(post_task_block);
+// Removed the post-task survey block from the timeline
 timeline.push(end_block);
+timeline.push(final_instruction_block);
 
 jsPsych.run(timeline);
