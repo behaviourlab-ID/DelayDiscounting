@@ -60,24 +60,34 @@ html, body {
 
 /* 5) Responsive Adjustments via Media Queries */
 @media (max-width: 600px) {
-  /* Reduce container margins and padding */
+  /* Ensure the container is centered and fits within the viewport */
   #container {
-    margin: 10px;
+    width: 90%;
+    margin: 10px auto;
     padding: 15px;
   }
-  
-  /* Stack table layout vertically */
-  .table, .row {
-    display: block;
+
+  /* Use Flexbox to stack options vertically */
+  .table {
+    display: flex;
+    flex-direction: column; /* Stack options vertically */
+    align-items: center;    /* Center the content */
+    width: 100%;
   }
-  
+
+  .row {
+    width: 100%;
+  }
+
   .option {
     display: block;
-    width: 100%;
-    margin-bottom: 10px;
+    width: 90%;         /* Reduce width slightly to prevent edge overflow */
+    margin: 5px auto;   /* Center each option */
+    padding: 12px;      /* Adjust padding for smaller screens */
+    box-sizing: border-box;
   }
-  
-  /* Adjust text size for smaller screens */
+
+  /* Adjust text size for readability on smaller screens */
   .center-block-text {
     font-size: 18px;
   }
