@@ -1,123 +1,84 @@
+/* Reset box-sizing for all elements */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* 1) Basic Page Settings */
-body {
+html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
   background-color: #f3f3f3;
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
 }
 
-/* 2) A White Box for Content (“Container”) */
+/* 2) Container Styling */
 #container {
   max-width: 600px;
-  margin: 80px auto;       /* centers horizontally with 80px top/bottom margin */
-  background-color: #fff;  /* white background */
-  border-radius: 8px;      /* slightly rounded corners */
-  padding: 30px;           /* space inside the box */
-  box-shadow: 0 0 10px rgba(0,0,0,0.15); /* subtle shadow */
-  font-size: 24px;         /* bigger base font size inside the card */
-  text-align: center;      /* center text within the container */
+  width: 100%;
+  margin: 20px auto;       /* Center the container with vertical margins */
+  padding: 20px;           /* Internal spacing */
+  background-color: #fff;  /* White background */
+  border-radius: 8px;      /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Subtle shadow */
 }
 
-/* 3) Table Layout for Your Options */
+/* 3) Text Styling */
+.center-block-text {
+  font-size: 20px;         /* Base font size */
+  line-height: 1.5em;
+  margin-bottom: 20px;     /* Space below text */
+  word-wrap: break-word;   /* Prevent long words from overflowing */
+}
+
+/* 4) Table Layout for Options */
 .table {
   display: table;
   width: 100%;
-  margin-top: 30px; /* spacing above the table */
+  margin-top: 20px;
 }
 
 .row {
   display: table-row;
 }
 
-/* Changed from id "option" to class "option" to allow multiple clickable items */
 .option {
   display: table-cell;
   width: 50%;
-  padding: 20px;
+  padding: 15px;
   border: 1px solid #ccc;
   vertical-align: middle;
-  cursor: pointer;             /* indicates the cell is clickable */
+  text-align: center;
+  cursor: pointer;             /* Indicates clickable element */
   transition: background-color 0.3s ease;
 }
 
 .option:hover {
-  background-color: #e6f0ff;   /* subtle highlight on hover */
+  background-color: #e6f0ff;
 }
 
-/* 4) General Class for Centered Paragraph Text */
-.center-block-text {
-  font-size: 24px;      /* bigger font for paragraphs */
-  line-height: 1.5em;
-  margin-bottom: 20px;  /* spacing below each paragraph */
-}
-
-/* 5) Default Buttons (if still needed elsewhere) */
-.jspsych-html-button-response-button-bar {
-  text-align: center;   /* center all response buttons beneath stimulus */
-  margin-top: 20px;     /* space above the buttons */
-}
-
-.jspsych-btn {
-  font-size: 20px;      /* bigger button label text */
-  padding: 10px 20px;   /* more padding */
-  margin: 0 10px;       /* slight spacing between buttons */
-  border-radius: 6px;
-  border: none;         /* remove default borders */
-  cursor: pointer;
-  background-color: #4f8ef7;
-  color: #fff;
-}
-.jspsych-btn:hover {
-  background-color: #306ce8;
-}
-
-.btn-default {
-  background-color: #4f8ef7;
-  color: #fff;
-  padding: 10px 20px;
-  font-size: 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.btn-default:hover {
-  background-color: #306ce8;
-}
-
-/* 6) Responsive Adjustments for Mobile Devices */
+/* 5) Responsive Adjustments via Media Queries */
 @media (max-width: 600px) {
+  /* Reduce container margins and padding */
   #container {
-    margin: 40px 10px;       /* less margin for mobile */
-    padding: 20px;           /* reduced padding */
-    font-size: 20px;         /* slightly smaller base font size */
+    margin: 10px;
+    padding: 15px;
   }
   
-  .table {
-    display: block;
-    margin-top: 20px;
-  }
-  
-  .row {
+  /* Stack table layout vertically */
+  .table, .row {
     display: block;
   }
   
   .option {
     display: block;
     width: 100%;
-    padding: 15px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
   }
   
+  /* Adjust text size for smaller screens */
   .center-block-text {
-    font-size: 20px;
-  }
-  
-  .jspsych-btn,
-  .btn-default {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
     font-size: 18px;
   }
 }
