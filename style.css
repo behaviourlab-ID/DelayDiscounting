@@ -92,3 +92,24 @@ html, body {
     font-size: 18px;
   }
 }
+
+/* 6) Button styling */
+.start-button {
+  display: block;           /* Make it a block element so it spans the full width */
+  width: 100%;              /* Full width of container */
+  max-width: 200px;         /* Restrict maximum width so it’s not too wide */
+  margin: 20px auto 0;      /* Center the button and add space above it */
+  padding: 12px 20px;       /* Increase padding for a larger clickable area */
+  font-size: 18px;          /* Larger text */
+  background-color: #007bff;/* Blue background */
+  color: white;             /* White text */
+  border: none;             /* Remove default border */
+  border-radius: 6px;       /* Rounded corners */
+  cursor: pointer;          /* Pointer cursor on hover */
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.start-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
