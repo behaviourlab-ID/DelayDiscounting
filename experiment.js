@@ -304,7 +304,7 @@ let end_block = {
   on_finish: function() {
     assessPerformance();
     let experimentData = jsPsych.data.get().json();
-    fetch("https://script.google.com/macros/s/AKfycbz94V8VKPglM_v0aSXJ4jTVWlvNFrT6wruXTtBmuePKEN2gwkmt5K0mk3cqfhRbwH5TPQ/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbz2ccQWlWeZTNL8EVP4_AEbDM_GAsu3f9WziZtwlsFxFaOrFUzifbhgWRrMRdflPtr0fg/exec", {
       method: "POST",
       mode: "no-cors", // bypass CORS checks if needed
       body: experimentData,
